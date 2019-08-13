@@ -1,4 +1,4 @@
-# A Pathfinding Implementation With GO Web Assembly
+# A* Pathfinding Implementation With GO Web Assembly
 An experimental WASM project that written in GOlang. WASM application solves path problem by using A* pathfinding algorithm.Matrix dataset created by javascript passes to WASM application. Solution returns to JS code and renders on HTML canvas.
 
 To Run Online: <br>
