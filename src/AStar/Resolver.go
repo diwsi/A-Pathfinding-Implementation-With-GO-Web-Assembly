@@ -21,9 +21,7 @@ func Resolve(problem [][]uint8) []uint32 {
 			if node.open || node.checked {
 				continue
 			}
-			if node.parent != nil && node.parent.gCost > targetNode.gCost {
-				node.parent = targetNode
-			} else if node.parent == nil {
+			if node.parent == nil {
 				node.parent = targetNode
 			}
 
@@ -76,7 +74,9 @@ func getLowestCostNode(nodes []*Node) *Node {
 	lowestCostNode := nodes[0]
 	for _, node := range nodes {
 		//lower hcost closer to target node
-		if node.hCost <= lowestCostNode.hCost {
+		if node.totalCost < lowestCostNode.totalCost {
+			lowestCostNode = node
+		} else if node.totalCost == lowestCostNode.totalCost && node.hCost < lowestCostNode.hCost {
 			lowestCostNode = node
 		}
 	}
@@ -150,12 +150,3 @@ func FindNode(source [][]Node, nodeType uint8) *Node {
 	}
 	return nil
 }
-
-// func Abs(n int16) uint32 {
-
-// 	if n > 0 {
-// 		return uint32(n)
-// 	}
-// 	return uint32(-n)
-
-// }
