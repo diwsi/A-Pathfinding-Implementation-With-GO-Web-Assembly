@@ -74,9 +74,7 @@ func getLowestCostNode(nodes []*Node) *Node {
 	lowestCostNode := nodes[0]
 	for _, node := range nodes {
 		//lower hcost closer to target node
-		if node.totalCost < lowestCostNode.totalCost {
-			lowestCostNode = node
-		} else if node.totalCost == lowestCostNode.totalCost && node.hCost < lowestCostNode.hCost {
+		if node.hCost < lowestCostNode.hCost {
 			lowestCostNode = node
 		}
 	}
