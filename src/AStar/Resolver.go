@@ -1,5 +1,7 @@
 package AStar
 
+import "math"
+
 func Resolve(problem [][]uint8) []uint32 {
 	//map to node objects
 	nodes := mapToNodes(problem)
@@ -19,7 +21,12 @@ func Resolve(problem [][]uint8) []uint32 {
 			if node.open || node.checked {
 				continue
 			}
-			node.parent = targetNode
+			if node.parent != nil && node.parent.gCost > targetNode.gCost {
+				node.parent = targetNode
+			} else if node.parent == nil {
+				node.parent = targetNode
+			}
+
 			calculateCost(node, startNode, endNode)
 			nodes[targetNode.y][targetNode.x].open = true
 			openNodes = append(openNodes, node)
@@ -78,9 +85,9 @@ func getLowestCostNode(nodes []*Node) *Node {
 
 func calculateCost(node *Node, start *Node, end *Node) {
 	//Distance to start point
-	node.gCost = Abs(int16(start.x)-int16(node.x)) + Abs(int16(start.y)-int16(node.y))
+	node.gCost = math.Sqrt(math.Pow(float64(start.x)-float64(node.x), 2) + math.Pow(float64(start.y)-float64(node.y), 2))
 	//Distance to end point
-	node.hCost = Abs(int16(end.x)-int16(node.x)) + Abs(int16(end.y)-int16(node.y))
+	node.hCost = math.Sqrt(math.Pow(float64(end.x)-float64(node.x), 2) + math.Pow(float64(end.y)-float64(node.y), 2))
 	node.totalCost = node.gCost + node.hCost
 }
 
@@ -144,11 +151,11 @@ func FindNode(source [][]Node, nodeType uint8) *Node {
 	return nil
 }
 
-func Abs(n int16) uint32 {
+// func Abs(n int16) uint32 {
 
-	if n > 0 {
-		return uint32(n)
-	}
-	return uint32(-n)
+// 	if n > 0 {
+// 		return uint32(n)
+// 	}
+// 	return uint32(-n)
 
-}
+// }

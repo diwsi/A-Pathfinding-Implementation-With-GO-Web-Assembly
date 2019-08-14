@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GOASTAR/AStar"
+	"AStar"
 	"syscall/js"
 )
 

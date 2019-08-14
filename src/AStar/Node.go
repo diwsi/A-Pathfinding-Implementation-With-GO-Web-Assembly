@@ -10,9 +10,9 @@ type Node struct {
 	y         uint16
 	index     uint32
 	val       uint8
-	gCost     uint32
-	hCost     uint32
-	totalCost uint32
+	gCost     float64
+	hCost     float64
+	totalCost float64
 	open      bool
 	checked   bool
 	parent    *Node
